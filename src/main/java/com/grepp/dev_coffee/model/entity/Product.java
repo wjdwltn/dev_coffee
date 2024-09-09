@@ -1,6 +1,6 @@
 package com.grepp.dev_coffee.model.entity;
 
-import com.grepp.dev_coffee.exception.NotEnoughStockException;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
