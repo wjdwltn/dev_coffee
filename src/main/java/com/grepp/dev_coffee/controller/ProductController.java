@@ -1,5 +1,6 @@
 package com.grepp.dev_coffee.controller;
 
+import com.grepp.dev_coffee.model.dto.OrderDTO;
 import com.grepp.dev_coffee.model.dto.ProductDTO;
 import com.grepp.dev_coffee.model.entity.Product;
 import com.grepp.dev_coffee.model.service.ProductService;
@@ -46,5 +47,17 @@ public class ProductController {
     public ResponseEntity<?> getProduct(@PathVariable UUID id){
         ProductDTO productDTO = productService.getProduct(id);
         return ResponseEntity.ok().body(productDTO);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateProduct(@PathVariable UUID id,@RequestBody ProductDTO productDTO){
+        UUID uid = productService.updateProduct(id,productDTO);
+        return ResponseEntity.ok().body(uid);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteProduct(@PathVariable UUID id){
+        UUID uid = productService.cancelProduct(id);
+        return ResponseEntity.ok().body(uid);
     }
 }

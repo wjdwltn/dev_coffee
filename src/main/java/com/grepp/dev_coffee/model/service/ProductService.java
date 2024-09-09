@@ -29,6 +29,31 @@ public class ProductService {
         return savedProduct.getProductId();
     }
 
+    //커피 수정
+    public UUID updateProduct(UUID productId,ProductDTO productDTO){
+        Product product = productRepository.findByProductId(productId)
+                .orElseThrow(() -> new NoSuchElementException("커피를 찾을 수 없습니다."));
+
+        product.setProductName(productDTO.getProductName());
+        product.setPrice(productDTO.getPrice());
+        product.setCategory(productDTO.getCategory());
+        product.setStock(productDTO.getStock());
+        product.setDescription(productDTO.getDescription());
+
+        return productRepository.save(product).getProductId();
+
+    }
+
+    //커피 삭제
+    public UUID cancelProduct(UUID productId) {
+        // 상품 조회
+        Product product = productRepository.findByProductId(productId)
+                .orElseThrow(() -> new NoSuchElementException("상품을 찾을 수 없습니다."));
+
+         productRepository.deleteByProductId(productId);
+        return product.getProductId();
+    }
+
 
    /* //커피 목록 조회
     public Page<ProductDTO> findAll(Pageable pageable){
