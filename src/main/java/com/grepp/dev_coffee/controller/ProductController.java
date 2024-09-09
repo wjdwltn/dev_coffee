@@ -3,6 +3,7 @@ package com.grepp.dev_coffee.controller;
 import com.grepp.dev_coffee.model.dto.ProductDTO;
 import com.grepp.dev_coffee.model.entity.Product;
 import com.grepp.dev_coffee.model.service.ProductService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,6 +20,7 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/product")
+@Tag(name = "ProductController", description = "User related operations")
 public class ProductController {
 
     private final ProductService productService;

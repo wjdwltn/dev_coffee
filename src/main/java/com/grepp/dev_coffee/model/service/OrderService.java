@@ -1,15 +1,13 @@
 package com.grepp.dev_coffee.model.service;
 
 
-import com.grepp.dev_coffee.model.converter.OrderConverter;
+import com.grepp.dev_coffee.converter.OrderConverter;
 import com.grepp.dev_coffee.model.dto.OrderDTO;
 import com.grepp.dev_coffee.model.entity.Order;
 import com.grepp.dev_coffee.model.entity.OrderItem;
 import com.grepp.dev_coffee.model.entity.OrderStatus;
 import com.grepp.dev_coffee.model.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,9 +59,9 @@ public class OrderService {
                 .collect(Collectors.toList());
     }
 
-    //주문 상세 내역 확인 (이메일)
-    public OrderDTO findByEmail(String email){
-        return orderRepository.findByEmail(email)
+    //주문 상세 내역 확인 (아이디)
+    public OrderDTO findById(UUID orderId){
+        return orderRepository.findByOrderId(orderId)
                 .map(orderConverter::convertOrderDto)
                 .orElseThrow(() -> new RuntimeException("Order not found"));
     }
@@ -89,7 +87,7 @@ public class OrderService {
     }
 
     //주문 취소
-    public void cancelOrder(String email) {
+    public UUID cancelOrder(String email) {
         // 주문 조회
         Order order = orderRepository.findByEmail(email)
                 .orElseThrow(() -> new NoSuchElementException("주문을 찾을 수 없습니다."));
@@ -100,5 +98,6 @@ public class OrderService {
 
         order.setOrderStatus(OrderStatus.CANCELED);
         orderRepository.save(order);
+        return order.getOrderId();
     }
 }

@@ -17,36 +17,42 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-@Tag(name = "User", description = "User related operations")
+@Tag(name = "OrderController", description = "User related operations")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/order")
 public class OrderController {
     private final OrderService orderService;
 
-    @Operation(summary = "Get users", description = "Get a list of all users")
+    //@Operation(summary = "Get users", description = "Get a list of all users")
     @PostMapping
     public ResponseEntity<?> createOrder(@RequestBody OrderDTO orderDTO) {
         UUID id = orderService.createOrder(orderDTO);
         return ResponseEntity.ok().body(id);
     }
 
-   /* @GetMapping("/{email}")
+    @GetMapping("/{email}")
     public ResponseEntity<?> list(@PathVariable String email){
         List<OrderDTO> orderDTOS = orderService.findAll(email);
         return  ResponseEntity.ok().body(orderDTOS);
-    }*/
+    }
 
-    @GetMapping("/{email}")
-    public ResponseEntity<?> getOrder(@PathVariable String email){
-        OrderDTO orderDTO = orderService.findByEmail(email);
+    @GetMapping("/read/{orderId}")
+    public ResponseEntity<?> getOrder(@PathVariable UUID orderId){
+        OrderDTO orderDTO = orderService.findById(orderId);
         return ResponseEntity.ok().body(orderDTO);
     }
 
-    @GetMapping("/update/{email}")
+    @PutMapping("/{email}")
     public ResponseEntity<?> update(@PathVariable String email,@RequestBody OrderDTO orderDTO){
         UUID id = orderService.updateOrder(email,orderDTO);
         return ResponseEntity.ok().body(id);
+    }
+
+    @DeleteMapping("/{email}")
+    public ResponseEntity<?> delete(@PathVariable String email){
+        UUID id=  orderService.cancelOrder(email);
+        return  ResponseEntity.ok().body(id);
     }
 
 }

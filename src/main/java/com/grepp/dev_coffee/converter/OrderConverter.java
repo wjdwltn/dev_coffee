@@ -1,4 +1,4 @@
-package com.grepp.dev_coffee.model.converter;
+package com.grepp.dev_coffee.converter;
 
 
 import com.grepp.dev_coffee.model.dto.OrderItemDTO;

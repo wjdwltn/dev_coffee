@@ -16,7 +16,7 @@ import java.util.UUID;
 public class Order {
     @Id @GeneratedValue
     @Column(name = "order_id")
-    private UUID OrderId;
+    private UUID orderId;
 
     private String email;
     private String address;

@@ -1,12 +1,10 @@
 package com.grepp.dev_coffee.model.service;
 
-import com.grepp.dev_coffee.model.converter.OrderConverter;
+import com.grepp.dev_coffee.converter.OrderConverter;
 import com.grepp.dev_coffee.model.dto.ProductDTO;
 import com.grepp.dev_coffee.model.entity.Product;
 import com.grepp.dev_coffee.model.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
